@@ -96,10 +96,14 @@ Note: You should be able to **identify** the problem given what you know about R
 
 ```{r}
 # This line reads in a tab-separated data file with a header naming the columns
+
 salary <- read.table("02-data.tsv", sep = "\t", header = T)
+
 
 # This code plots labels for each individual at location (x, y)
 library(ggplot2)
+
+
 ggplot(salary, aes(x = Hire.Year, y = Salary, label = Name)) + 
   geom_label()
 
@@ -115,8 +119,13 @@ Here is how I solved the problem: I'm not sure how to get rid of $
 
 ```{r cleaning-the-data-r}
 # Your implementation code goes here
+library(dplyr)
 # This line reads in a tab-separated data file with a header naming the columns
 salary <- read.table("02-data.tsv", sep = "\t", header = T)
+
+#get rid of $ and comma in the csv file
+salary <- salary %>%
+  mutate(Salary = as.numeric(gsub("[$,]", "", Salary)))
 
 # This code plots labels for each individual salary with color and legend (x, y)
 library(ggplot2)
